@@ -1,0 +1,51 @@
+// Automatic FlutterFlow imports
+import '../../backend/backend.dart';
+import '../../flutter_flow/flutter_flow_theme.dart';
+import '../../flutter_flow/flutter_flow_util.dart';
+import '../widgets/index.dart'; // Imports other custom widgets
+import '../actions/index.dart'; // Imports custom actions
+import '../../flutter_flow/custom_functions.dart'; // Imports custom functions
+import 'package:flutter/material.dart';
+// Begin custom widget code
+// DO NOT REMOVE OR MODIFY THE CODE ABOVE!
+
+import 'package:pretty_gauge/pretty_gauge.dart';
+
+class MyGauge extends StatefulWidget {
+  const MyGauge({
+    Key? key,
+    this.width,
+    this.height,
+  }) : super(key: key);
+
+  final double? width;
+  final double? height;
+
+  @override
+  _MyGaugeState createState() => _MyGaugeState();
+}
+
+class _MyGaugeState extends State<MyGauge> {
+  @override
+  Widget build(BuildContext context) {
+    MainAxisAlignment.center;
+    return PrettyGauge(
+      gaugeSize: 500,
+      segments: [
+        GaugeSegment('Low', 10, Colors.red),
+        GaugeSegment('Medium', 30, Colors.orange),
+        GaugeSegment('High', 50, Colors.green),
+        GaugeSegment(
+          'Prueba',
+          10,
+          Colors.brown,
+        )
+      ],
+      currentValue: 75,
+      displayWidget: Text('Fuel in tank', style: TextStyle(fontSize: 12)),
+    );
+    //return Container();
+  }
+}
+// Set your widget name, define your parameter, and then add the
+// boilerplate code using the button on the right!
