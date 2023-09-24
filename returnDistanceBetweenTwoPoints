@@ -1,0 +1,60 @@
+Devolver Distancia entre 2 puntos
+
+Nombre: returnDistanceBetweenTwoPoints
+
+Return -> String, Nullable
+
+Parametros:
+  - positionOne -> LatLng, Nullable
+  - positionTwo -> LatLng, Nullable
+
+Codigo:
+
+import 'dart:convert';
+import 'dart:math' as math;
+
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:timeago/timeago.dart' as timeago;
+import '../../flutter_flow/lat_lng.dart';
+import '../../flutter_flow/place.dart';
+import '../../flutter_flow/uploaded_file.dart';
+import '../../flutter_flow/custom_functions.dart';
+import '/backend/backend.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '/auth/firebase_auth/auth_util.dart';
+
+String? returnDistanceBetweenTwoPoints(
+  LatLng? positionOne,
+  LatLng? positionTwo,
+) {
+  /// MODIFY CODE ONLY BELOW THIS LINE
+
+  // calculate the distance between two points on a spheroid and return distance as double
+  var p = 0.017453292519943295;
+  var a = 0.5 -
+      math.cos((positionTwo!.latitude - positionOne!.latitude) * p) / 2 +
+      math.cos(positionOne.latitude * p) *
+          math.cos(positionTwo.latitude * p) *
+          (1 - math.cos((positionTwo.longitude - positionOne.longitude) * p)) /
+          2;
+  double result = 12742 * math.asin(math.sqrt(a));
+
+  double dist = result.roundToDouble();
+
+  if (dist > 0) {
+    // uncomment the line below if you want the result to be rounded
+    double resultInKM = result.roundToDouble();
+    // if you uncommented the line above, you have to replace result in the line below with finalResult
+    return '$resultInKM Km';
+  } else if (dist <= 0) {
+    double finalResult = (result * 1000);
+    double resultInMeters = finalResult.roundToDouble();
+    return '$resultInMeters Metros';
+  }
+
+  return '0 km';
+
+  /// MODIFY CODE ONLY ABOVE THIS LINE
+}
