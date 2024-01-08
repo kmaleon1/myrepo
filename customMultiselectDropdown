@@ -1,0 +1,87 @@
+-----------------DATOS DE CONFIGURACIÓN-------------------------------------
+
+Crear un AppState de tipo lista JSON 
+  
+Dependencias: multiselect_dropdown_flutter: ^0.0.7
+
+Parametros:
+
+- listaItems: tipo String - Lista - No Nullable
+- selectedList: tipo String - Lista - No Nullable
+- hintText: string - No Lista - No Nullable
+
+
+------------------ CODIGO -------------------------------------------------
+
+// Automatic FlutterFlow imports
+import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/widgets/index.dart'; // Imports other custom widgets
+import '/custom_code/actions/index.dart'; // Imports custom actions
+import '/flutter_flow/custom_functions.dart'; // Imports custom functions
+import 'package:flutter/material.dart';
+// Begin custom widget code
+// DO NOT REMOVE OR MODIFY THE CODE ABOVE!
+
+import 'package:multiselect_dropdown_flutter/multiselect_dropdown_flutter.dart';
+
+class MultiselectDropdown extends StatefulWidget {
+  const MultiselectDropdown({
+    Key? key,
+    this.width,
+    this.height,
+    required this.listaItems,
+    required this.selectedList,
+    required this.hintText,
+  }) : super(key: key);
+
+  final double? width;
+  final double? height;
+  final List<String> listaItems;
+  final List<String> selectedList;
+  final String hintText;
+
+  @override
+  _MultiselectDropdownState createState() => _MultiselectDropdownState();
+}
+
+class _MultiselectDropdownState extends State<MultiselectDropdown> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+          //const SizedBox(height: 50),
+          MultiSelectDropdown.simpleList(
+            list: this.widget.listaItems,
+            initiallySelected: this.widget.selectedList,
+            onChange: (newList) {
+              // your logic
+              FFAppState().update(() {
+                FFAppState().dropdownItemList = newList;
+              });
+            },
+            includeSearch: true,
+            includeSelectAll: false,
+            isLarge: true,
+            boxDecoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(4),
+                border: Border.all(color: Colors.red, width: 0)),
+            checkboxFillColor: Colors.blueAccent,
+            textStyle: TextStyle(
+                fontFamily: 'Outfit',
+                fontSize: 14,
+                fontWeight: FontWeight.bold),
+            listTextStyle: TextStyle(
+                fontFamily: 'Outfit',
+                fontSize: 14,
+                fontWeight: FontWeight.bold),
+            whenEmpty: this.widget.hintText,
+          ),
+        ],
+      ),
+    );
+  }
+}
